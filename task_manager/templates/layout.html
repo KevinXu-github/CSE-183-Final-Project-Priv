@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="[[=URL('static')]]/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="shortcut icon"
+      href="data:image/x-icon;base64,AAABAAEAAQEAAAEAIAAwAAAAFgAAACgAAAABAAAAAgAAAAEAIAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAA=="
+    />
+    <link rel="stylesheet" href="css/no.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <style>
+      .py4web-validation-error {
+        margin-top: -16px;
+        font-size: 0.8em;
+        color: red;
+      }
+      body > center > * {
+        max-width: 90%;
+      }
+     .curUserId {
+        display: none;
+      }
+    </style>
+    [[block page_head]]
+    <!-- individual pages can customize header here -->
+    [[end]]
+  </head>
+  <body>
+    <header>
+      <!-- Navigation bar -->
+      <nav class="black">
+        <a href="[[=URL('index')]]">
+          <b>Task Management</b>
+        </a>
+        <!-- Left menu ul/li -->
+        [[block page_left_menu]][[end]]
+        <!-- Right menu ul/li -->
+        <ul>
+          [[if globals().get('user'):]]
+          <li><a href="[[=URL('tasks')]]">Add/Edit</a></li>
+          <li><a href="[[=URL('filter_tasks')]]">Filter</a></li>
+          <li><a href="[[=URL('task_comments')]]">Comments</a></li>
+          <li><a href="[[=URL('task_assignment')]]">Assign</a></li>
+          <li><a href="[[=URL('person')]]">Change manager</a></li>
+          <li><a href="[[=URL('employee')]]">Employee Details</a></li>
+          <li>
+            <a class="navbar-link is-primary">
+              [[=globals().get('user',{}).get('email')]] (userId: [[=globals().get('user',{}).get('id')]])
+            </a>
+            <ul>
+              <li><a href="[[=URL('auth/logout')]]">Logout</a></li>
+            </ul>
+          </li>
+          [[else:]]
+          <li>
+            Login
+            <ul>
+              <li><a href="[[=URL('auth/register')]]">Sign up</a></li>
+              <li><a href="[[=URL('auth/login')]]">Log in</a></li>
+            </ul>
+          </li>
+          [[pass]]
+        </ul>
+      </nav>
+    </header>
+    <!-- beginning of HTML inserted by extending template -->
+    <center>
+      <div>
+        <!-- Flash alert messages, first optional one in data-alert -->
+        <flash-alerts
+          class="padded"
+          data-alert="[[=globals().get('flash','')]]"
+        ></flash-alerts>
+      </div>
+      <main class="padded">
+        <!-- contect injected by extending page -->
+        [[include]]
+      </main>
+    </center>
+    <!-- end of HTML inserted by extending template -->
+    <!-- <footer class="black padded"></footer> -->
+  </body>
+  <!-- <script src="js/utils.js"></script> -->
+  [[block page_scripts]]<!-- individual pages can add scripts here -->[[end]]
+</html>

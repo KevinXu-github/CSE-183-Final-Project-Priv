@@ -1,0 +1,19 @@
+[[extend 'layout.html']] [[=grid.render()]]
+
+<div class="curUserId">[[=globals().get('user',{}).get('id')]]</div>
+
+<script>
+    function handleFilterChange() {
+        const filterDropDown = document.querySelector('#grid-search select');
+        filterDropDown.addEventListener('change', (event) => {
+            const filterValue = event.target.value;
+            const userId = document.querySelector('.curUserId').innerText;
+            const searchInput = document.querySelector('#grid-search input');
+            if (filterValue === "3" || filterValue === "4") {
+                searchInput.value = userId;
+            }
+        });
+    }
+    handleFilterChange();
+   
+</script>
